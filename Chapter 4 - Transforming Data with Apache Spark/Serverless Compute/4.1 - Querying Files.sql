@@ -17,7 +17,7 @@
 
 -- COMMAND ----------
 
--- MAGIC %run ../Includes/School-Setup
+-- MAGIC %run ../../Includes/Serverless-School-Setup
 
 -- COMMAND ----------
 
@@ -27,19 +27,19 @@
 
 -- COMMAND ----------
 
-SELECT * FROM json.`${dataset.school}/students-json/export_001.json`
+SELECT * FROM json.`dbfs:/mnt/DE-Associate-Book/datasets/school/students-json/export_001.json`
 
 -- COMMAND ----------
 
-SELECT * FROM json.`${dataset.school}/students-json/export_*.json`
+SELECT * FROM json.`dbfs:/mnt/DE-Associate-Book/datasets/school/students-json/export_*.json`
 
 -- COMMAND ----------
 
-SELECT * FROM json.`${dataset.school}/students-json`
+SELECT * FROM json.`dbfs:/mnt/DE-Associate-Book/datasets/school/students-json`
 
 -- COMMAND ----------
 
-SELECT COUNT(1) FROM json.`${dataset.school}/students-json`
+SELECT COUNT(1) FROM json.`dbfs:/mnt/DE-Associate-Book/datasets/school/students-json`
 
 -- COMMAND ----------
 
@@ -53,7 +53,7 @@ FROM json.`${dataset.school}/students-json`;
 
 -- COMMAND ----------
 
-SELECT * FROM text.`${dataset.school}/students-json`
+SELECT * FROM text.`dbfs:/mnt/DE-Associate-Book/datasets/school/students-json`
 
 -- COMMAND ----------
 
@@ -62,7 +62,7 @@ SELECT * FROM text.`${dataset.school}/students-json`
 
 -- COMMAND ----------
 
-SELECT * FROM binaryFile.`${dataset.school}/students-json`
+SELECT * FROM binaryFile.`dbfs:/mnt/DE-Associate-Book/datasets/school/students-json`
 
 -- COMMAND ----------
 
@@ -72,7 +72,7 @@ SELECT * FROM binaryFile.`${dataset.school}/students-json`
 
 -- COMMAND ----------
 
-SELECT * FROM csv.`${dataset.school}/courses-csv`
+SELECT * FROM csv.`dbfs:/mnt/DE-Associate-Book/datasets/school/courses-csv`
 
 -- COMMAND ----------
 
@@ -82,14 +82,14 @@ SELECT * FROM csv.`${dataset.school}/courses-csv`
 -- COMMAND ----------
 
 CREATE TABLE students AS
-SELECT * FROM json.`${dataset.school}/students-json`;
+SELECT * FROM json.`dbfs:/mnt/DE-Associate-Book/datasets/school/students-json`;
 
 DESCRIBE EXTENDED students;
 
 -- COMMAND ----------
 
 CREATE TABLE courses_unparsed AS
-SELECT * FROM csv.`${dataset.school}/courses-csv`;
+SELECT * FROM csv.`dbfs:/mnt/DE-Associate-Book/datasets/school/courses-csv`;
 
 SELECT * FROM courses_unparsed;
 
@@ -106,7 +106,7 @@ USING CSV
 OPTIONS (
  header = "true",
  delimiter = ";")
-LOCATION "${dataset.school}/courses-csv"
+LOCATION "dbfs:/mnt/DE-Associate-Book/datasets/school/courses-csv"
 
 -- COMMAND ----------
 
@@ -155,7 +155,8 @@ SELECT COUNT(1) FROM courses_csv
 
 -- COMMAND ----------
 
-REFRESH TABLE courses_csv
+-- MAGIC %md
+-- MAGIC REFRESH TABLE courses_csv
 
 -- COMMAND ----------
 
@@ -172,7 +173,7 @@ CREATE TEMP VIEW courses_tmp_vw
   (course_id STRING, title STRING, instructor STRING, category STRING, price DOUBLE)
 USING CSV
 OPTIONS (
- path = "${dataset.school}/courses-csv/export_*.csv",
+ path = "dbfs:/mnt/DE-Associate-Book/datasets/school/courses-csv/export_*.csv",
  header = "true",
  delimiter = ";"
 );
