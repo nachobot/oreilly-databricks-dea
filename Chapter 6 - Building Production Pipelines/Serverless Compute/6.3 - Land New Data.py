@@ -13,4 +13,4 @@ load_new_json_data()
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC SELECT * from json.`dbfs:/mnt/DE-Associate-Book/datasets/school/courses-cdc/02.json`
+# MAGIC -- SELECT * from json.`dbfs:/mnt/DE-Associate-Book/datasets/school/courses-cdc/02.json`

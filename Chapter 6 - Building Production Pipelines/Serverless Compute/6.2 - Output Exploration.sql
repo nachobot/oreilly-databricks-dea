@@ -23,3 +23,7 @@ USE CATALOG daniella
 -- COMMAND ----------
 
 SELECT * FROM default.uk_daily_student_courses
+
+-- COMMAND ----------
+
+SELECT * FROM default.fr_daily_student_courses
